@@ -1,4 +1,4 @@
 package com.fernandoh.dto;
 
-public record PurchaseDTO(Long clientId, Long bookdId) {
+public record PurchaseDTO(Long clientId, Long bookId) {
 }

@@ -5,10 +5,7 @@ import com.fernandoh.model.Book;
 import com.fernandoh.model.Client;
 import com.fernandoh.repository.BookRepository;
 import com.fernandoh.repository.ClientRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PurchaseBookService {
@@ -22,18 +19,21 @@ public class PurchaseBookService {
         this.bookRepository = bookRepository;
     }
 
-    public ResponseEntity<Client> purchaseBook(PurchaseDTO purchaseDTO) throws Exception {
-        Book book = bookRepository.findById(purchaseDTO.bookdId()).map(Book::new)
+    public Client purchaseBook(PurchaseDTO purchaseDTO) throws Exception {
+        Book book = bookRepository.findById(purchaseDTO.bookId()).map(Book::new)
                 .orElseThrow(() -> new Exception("Livro não consta em nossa base."));
 
         Client client = clientRepository.findById(purchaseDTO.clientId()).map(Client::new)
                 .orElseThrow(() -> new Exception("Cliente não consta em nossa base."));
 
-        if(book.getPrice().compareTo(client.getBalance()) > 0) throw new Exception("Cliente não tem saldo suficiente");
+        if (book.getPrice().compareTo(client.getBalance()) > 0) {
+            throw new Exception("Cliente não tem saldo suficiente");
+        }
 
         client.addBook(book);
+        client.subtractBookValue(book.getPrice());
         clientRepository.save(client);
 
-        return ResponseEntity.ok(client);
+        return client;
     }
 }
