@@ -15,12 +15,14 @@ public class Client {
     private Long id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String document;
     private BigDecimal balance;
     @ManyToMany
     private List<Book> books;
 
-    public Client(){}
+    public Client() {
+    }
 
     public Client(Client client) {
         this.id = client.getId();
@@ -92,6 +94,10 @@ public class Client {
 
     public void deposit(BigDecimal value) {
         this.balance = this.balance.add(value);
+    }
+
+    public void subtractBookValue(BigDecimal value) {
+        this.balance = this.balance.subtract(value);
     }
 
     @Override

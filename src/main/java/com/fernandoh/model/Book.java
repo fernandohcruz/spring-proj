@@ -16,6 +16,9 @@ public class Book {
     private String author;
     private BigDecimal price;
 
+    public Book() {
+    }
+
     public Book(Book book) {
         this.id = book.getId();
         this.name = book.getName();
