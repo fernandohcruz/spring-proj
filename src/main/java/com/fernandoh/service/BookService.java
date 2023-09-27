@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -16,10 +18,14 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public ResponseEntity<Book> createBook(BookDTO bookDTO) {
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
+    public Book createBook(BookDTO bookDTO) {
         Book book = new Book(bookDTO);
         saveBook(book);
-        return new ResponseEntity<>(book, HttpStatus.CREATED);
+        return book;
     }
 
     private void saveBook(Book book) {

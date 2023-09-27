@@ -3,11 +3,11 @@ package com.fernandoh.controller;
 import com.fernandoh.dto.BookDTO;
 import com.fernandoh.model.Book;
 import com.fernandoh.service.BookService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("book")
@@ -19,8 +19,14 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Book>> getAllBooks(){
+        List<Book> bookList = bookService.getAllBooks();
+        return new ResponseEntity<>(bookList, HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody BookDTO bookDTO) {
-        return bookService.createBook(bookDTO);
+        Book book = bookService.createBook(bookDTO);
+        return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 }
