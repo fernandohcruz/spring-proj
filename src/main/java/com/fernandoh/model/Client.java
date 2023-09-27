@@ -40,10 +40,6 @@ public class Client {
         this.balance = clientDTO.balance();
     }
 
-    public void addBook(Book book) {
-        this.books.add(book);
-    }
-
     public Long getId() {
         return id;
     }
@@ -90,14 +86,6 @@ public class Client {
 
     public void setBooks(List<Book> books) {
         this.books = books;
-    }
-
-    public void deposit(BigDecimal value) {
-        this.balance = this.balance.add(value);
-    }
-
-    public void subtractBookValue(BigDecimal value) {
-        this.balance = this.balance.subtract(value);
     }
 
     @Override

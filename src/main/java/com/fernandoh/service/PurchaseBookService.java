@@ -7,6 +7,8 @@ import com.fernandoh.repository.BookRepository;
 import com.fernandoh.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PurchaseBookService {
 
@@ -30,8 +32,12 @@ public class PurchaseBookService {
             throw new Exception("Cliente não tem saldo suficiente");
         }
 
-        client.addBook(book);
-        client.subtractBookValue(book.getPrice());
+        List<Book> clientBooks = client.getBooks();
+        clientBooks.add(book);
+        client.setBooks(clientBooks);
+
+        client.setBalance(client.getBalance().subtract(book.getPrice()));
+
         clientRepository.save(client);
 
         return client;

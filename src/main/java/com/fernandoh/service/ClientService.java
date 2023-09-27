@@ -1,7 +1,7 @@
 package com.fernandoh.service;
 
 import com.fernandoh.dto.ClientDTO;
-import com.fernandoh.dto.DepositeMoneyDTO;
+import com.fernandoh.dto.DepositMoneyDTO;
 import com.fernandoh.model.Client;
 import com.fernandoh.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -27,11 +27,12 @@ public class ClientService {
         return client;
     }
 
-    public Client depositMoney(DepositeMoneyDTO dto) throws Exception {
+    public Client depositMoney(DepositMoneyDTO dto) throws Exception {
         Client client = clientRepository.findById(dto.id()).map(Client::new)
                 .orElseThrow(() -> new Exception("Cliente não consta em nossa base."));
 
-        client.deposit(dto.value());
+        client.setBalance(client.getBalance().add(dto.value()));
+
         saveClient(client);
 
         return client;
