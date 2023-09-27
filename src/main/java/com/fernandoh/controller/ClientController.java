@@ -2,6 +2,7 @@ package com.fernandoh.controller;
 
 import com.fernandoh.dto.ClientDTO;
 import com.fernandoh.dto.DepositMoneyDTO;
+import com.fernandoh.dto.UpdateClientDTO;
 import com.fernandoh.model.Client;
 import com.fernandoh.service.ClientService;
 import org.springframework.http.HttpStatus;
@@ -36,5 +37,17 @@ public class ClientController {
     public ResponseEntity<Client> depositMoney(@RequestBody DepositMoneyDTO dto) throws Exception {
         Client client = clientService.depositMoney(dto);
         return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-user/{id}")
+    public ResponseEntity<Client> updateClient(@RequestBody UpdateClientDTO clientDTO, @PathVariable Long id) throws Exception {
+        Client client = clientService.updateClient(clientDTO, id);
+        return new ResponseEntity<>(client, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/delete-user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) throws Exception {
+        clientService.deleteUser(id);
+        return ResponseEntity.ok().build();
     }
 }
