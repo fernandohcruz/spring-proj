@@ -1,7 +1,7 @@
 package com.fernandoh.controller;
 
 import com.fernandoh.dto.ClientDTO;
-import com.fernandoh.dto.DepositeMoneyDTO;
+import com.fernandoh.dto.DepositMoneyDTO;
 import com.fernandoh.model.Client;
 import com.fernandoh.service.ClientService;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class ClientController {
     }
 
     @PostMapping("/deposit-money")
-    public ResponseEntity<Client> depositMoney(@RequestBody DepositeMoneyDTO dto) throws Exception {
+    public ResponseEntity<Client> depositMoney(@RequestBody DepositMoneyDTO dto) throws Exception {
         Client client = clientService.depositMoney(dto);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
