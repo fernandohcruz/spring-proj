@@ -2,5 +2,5 @@ package com.fernandoh.dto;
 
 import java.math.BigDecimal;
 
-public record DepositeMoneyDTO(Long id, BigDecimal value) {
+public record DepositMoneyDTO(Long id, BigDecimal value) {
 }
